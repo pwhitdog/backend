@@ -59,6 +59,8 @@ namespace Backend.Migrations
 
                     b.Property<string>("NormalizedUserName");
 
+                    b.Property<string>("Password");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
