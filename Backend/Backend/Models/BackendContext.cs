@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models
 {
-    public class BackendContext: DbContext
+    public class BackendContext: IdentityDbContext
     {
         public BackendContext(DbContextOptions<BackendContext> options) : base(options)
         {
@@ -10,5 +11,6 @@ namespace Backend.Models
         }
 
         public DbSet<TestClass> TestClasses { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

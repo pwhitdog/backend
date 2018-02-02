@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/Users/paulwhitmer/Projects/Backend/Backend/Backend.csproj",
+    "projectUniqueName": "/Users/paulwhitmer/Projects/backend/Backend/Backend/Backend.csproj",
     "projectName": "Backend",
-    "projectPath": "/Users/paulwhitmer/Projects/Backend/Backend/Backend.csproj",
-    "outputPath": "/Users/paulwhitmer/Projects/Backend/Backend/obj/",
+    "projectPath": "/Users/paulwhitmer/Projects/backend/Backend/Backend/Backend.csproj",
+    "outputPath": "/Users/paulwhitmer/Projects/backend/Backend/Backend/obj/",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -26,6 +26,10 @@
   "frameworks": {
     "netcoreapp2.0": {
       "dependencies": {
+        "Microsoft.AspNet.Identity.Core": {
+          "target": "Package",
+          "version": "[2.2.1, )"
+        },
         "Microsoft.AspNetCore.All": {
           "target": "Package",
           "version": "[2.0.5, )"
