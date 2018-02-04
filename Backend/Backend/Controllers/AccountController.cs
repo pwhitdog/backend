@@ -5,6 +5,7 @@ using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Backend.Controllers
 {
@@ -18,24 +19,23 @@ namespace Backend.Controllers
         public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            JwtTokenService jwtTokenService
-            
+            IConfiguration configuration
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtTokenService = jwtTokenService;
+            _jwtTokenService = new JwtTokenService(configuration);
         }
         
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
             
             if (result.Succeeded)
             {
                 var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await _jwtTokenService.GenerateJwtToken(model.Email, appUser);
+                return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser));
             }
             
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
