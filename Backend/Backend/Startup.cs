@@ -75,6 +75,7 @@ namespace Backend
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
             dbContext.Database.EnsureCreated();
         }
