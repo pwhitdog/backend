@@ -9,8 +9,5 @@ namespace Backend.Models
         {
             
         }
-
-        public DbSet<TestClass> TestClasses { get; set; }
-        public DbSet<User> Users { get; set; }
     }
 }
