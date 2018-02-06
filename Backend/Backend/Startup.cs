@@ -68,7 +68,10 @@ namespace Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BackendContext dbContext)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            BackendContext dbContext,
+            UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -78,6 +81,8 @@ namespace Backend
             app.UseAuthentication();
             app.UseMvc();
             dbContext.Database.EnsureCreated();
+            var dbInitializer = new DbInitializer(userManager);
+            dbInitializer.Initialize(dbContext);
         }
     }
 }

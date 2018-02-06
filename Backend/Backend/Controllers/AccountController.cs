@@ -50,6 +50,7 @@ namespace Backend.Controllers
                 Email = model.Email
             };
             var result = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, "Customer");
 
             if (result.Succeeded)
             {
