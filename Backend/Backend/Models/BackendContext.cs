@@ -25,15 +25,14 @@ namespace Backend.Models
         {
             IdentityRole admin;
             
-            if (!context.Roles.Any(r => r.Name == "Admin"))
+            if (!context.Roles.Any(r => r.Name == "admin"))
             {
                 admin = new IdentityRole
                 {
-                    Name = "Admin",
-                    NormalizedName = "Admin"
+                    Name = "admin",
+                    NormalizedName = "ADMIN"
                 };
                 context.Roles.Add(admin);
-                await context.SaveChangesAsync();
             }
             else
             {
@@ -41,21 +40,19 @@ namespace Backend.Models
             }
 
             IdentityUser user;
+            IdentityResult result;
             if (!context.Users.Any(u => u.Email == "admin@nope.com"))
             {
                 user = new IdentityUser
                 {
                     Email = "admin@nope.com",
                     NormalizedEmail = "admin@nope.com",
-                    UserName = "Admin"
+                    UserName = "admin@nope.com"
                 };
-                var result = await _userManager.CreateAsync(user, "herpDerp1!");
+                result = await _userManager.CreateAsync(user, "herpDerp1!");
+                await context.SaveChangesAsync();
+                result = await _userManager.AddToRoleAsync(user, admin.Name);
             }
-            else
-            {
-                user = await context.Users.FirstOrDefaultAsync(u => u.Email == "admin@nope.com");
-            }
-            var derp = await _userManager.AddToRoleAsync(user, admin.Name);
 
         }
     }

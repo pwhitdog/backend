@@ -35,7 +35,7 @@ namespace Backend.Controllers
             if (result.Succeeded)
             {
                 var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser));
+                return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser, _userManager));
             }
             
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
@@ -55,7 +55,7 @@ namespace Backend.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await _jwtTokenService.GenerateJwtToken(model.Email, user);
+                return await _jwtTokenService.GenerateJwtToken(model.Email, user, _userManager);
             }
             
             throw new ApplicationException("UNKNOWN_ERROR");

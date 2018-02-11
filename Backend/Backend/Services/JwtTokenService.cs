@@ -19,15 +19,20 @@ namespace Backend.Services
             _configuration = configuration;
         }
         
-        public async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        public async Task<object> GenerateJwtToken(string email, IdentityUser user, UserManager<IdentityUser> userManager)
         {
+            var userRoles = await userManager.GetRolesAsync(user);
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Role, "Admin")
             };
+
+            foreach (var userRole in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

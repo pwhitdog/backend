@@ -82,7 +82,7 @@ namespace Backend
             app.UseMvc();
             dbContext.Database.EnsureCreated();
             var dbInitializer = new DbInitializer(userManager);
-            dbInitializer.Initialize(dbContext);
+            dbInitializer.Initialize(dbContext).Wait();
         }
     }
 }
