@@ -52,6 +52,15 @@ namespace Backend.Models
                 result = await _userManager.CreateAsync(user, "herpDerp1!");
                 await context.SaveChangesAsync();
                 result = await _userManager.AddToRoleAsync(user, admin.Name);
+                
+                var customer = new IdentityRole
+                {
+                    Name = "Customer",
+                    NormalizedName = "CUSTOMER"
+                };
+
+                context.Roles.Add(customer);
+                context.SaveChangesAsync().Wait();
             }
 
         }
