@@ -30,15 +30,22 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
-            
-            if (result.Succeeded)
+            try
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser, _userManager));
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+
+                if (result.Succeeded)
+                {
+                    var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+                    return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser, _userManager));
+                }
             }
-            
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            catch
+            {
+               return BadRequest("Incorrect username or password entered."); 
+            }
+
+            return Ok();
         }
        
         [HttpPost]

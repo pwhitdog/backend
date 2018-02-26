@@ -32,6 +32,17 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+            
             services.AddMvc();
             
             services.AddEntityFrameworkNpgsql().AddDbContext<BackendContext>(opt =>
@@ -79,6 +90,7 @@ namespace Backend
             }
 
             app.UseAuthentication();
+            app.UseCors("AllowAllHeaders");
             app.UseMvc();
             dbContext.Database.EnsureCreated();
             var dbInitializer = new DbInitializer(userManager);
