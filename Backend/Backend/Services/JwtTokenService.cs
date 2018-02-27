@@ -19,9 +19,9 @@ namespace Backend.Services
             _configuration = configuration;
         }
         
-        public async Task<object> GenerateJwtToken(string email, IdentityUser user, UserManager<IdentityUser> userManager)
+        public async Task<object> GenerateJwtToken(string email, 
+            IdentityUser user, IList<string> userRoles)
         {
-            var userRoles = await userManager.GetRolesAsync(user);
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),

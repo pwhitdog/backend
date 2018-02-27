@@ -28,5 +28,8 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+Backend/Backend/obj/
+Backend/Backend/bin/
+
 # Visual Studio 2015
 .vs/

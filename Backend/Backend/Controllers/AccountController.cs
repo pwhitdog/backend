@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
@@ -6,6 +7,7 @@ using Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Backend.Controllers
 {
@@ -37,7 +39,17 @@ namespace Backend.Controllers
                 if (result.Succeeded)
                 {
                     var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                    return Ok(await _jwtTokenService.GenerateJwtToken(model.Email, appUser, _userManager));
+
+                    var userRoles = await _userManager.GetRolesAsync(appUser);
+
+                    var jwt = await _jwtTokenService.GenerateJwtToken(model.Email, appUser, userRoles);
+                    var returnObj = new ReturnObject
+                    {
+                        Token = jwt.ToString(),
+                        Roles = userRoles.ToList()
+                    };
+                    var json = JsonConvert.SerializeObject(returnObj);
+                    return Ok(json);
                 }
             }
             catch
@@ -62,10 +74,20 @@ namespace Backend.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await _jwtTokenService.GenerateJwtToken(model.Email, user, _userManager);
+                var roles = new List<string>
+                {
+                    "Customer"
+                };
+                return await _jwtTokenService.GenerateJwtToken(model.Email, user, roles);
             }
             
             throw new ApplicationException("UNKNOWN_ERROR");
+        }
+        
+        private class ReturnObject
+        {
+            public string Token { get; set; }
+            public List<string> Roles { get; set; }
         }
     }
 }
