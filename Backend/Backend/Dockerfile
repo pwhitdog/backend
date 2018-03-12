@@ -1,14 +1,16 @@
 FROM microsoft/aspnetcore:2.0 AS base
-WORKDIR /app
+#WORKDIR /app
 EXPOSE 5000
 
 FROM microsoft/aspnetcore-build:2.0 AS build
-WORKDIR /src
-COPY *.sln ./
-COPY Backend/Backend.csproj Backend/
-RUN dotnet restore
+#WORKDIR /src
+#RUN ls -la Backend/
+#COPY *.sln ./
+#COPY Backend.csproj Backend/
+#RUN dotnet restore
 COPY . .
-WORKDIR /src/Backend
+RUN dotnet restore
+#WORKDIR /src/Backend
 RUN dotnet build -c Release -o /app
 
 FROM build AS publish

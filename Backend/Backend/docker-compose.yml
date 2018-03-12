@@ -1,0 +1,23 @@
+version: '2.1'
+
+volumes:
+  postgres-data:
+      driver: local
+      
+services:
+  # Our PostgreSQL service:
+  postgres:
+    image: postgres:9.6.1
+    ports:
+      - 5432:32769
+    volumes:
+      - ./db/dumps:/db/dumps
+      - ./tmp:/tmp
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: herpderp
+  api:
+    image: microsoft/aspnetcore:2.0
+    ports:
+      - 5000:5000
+    

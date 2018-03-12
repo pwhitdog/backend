@@ -69,16 +69,23 @@ namespace Backend.Controllers
                 Email = model.Email
             };
             var result = await _userManager.CreateAsync(user, model.Password);
-            await _userManager.AddToRoleAsync(user, "Customer");
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Customer");
                 await _signInManager.SignInAsync(user, false);
-                var roles = new List<string>
+                var userRoles = new List<string>
                 {
                     "Customer"
                 };
-                return await _jwtTokenService.GenerateJwtToken(model.Email, user, roles);
+                var jwt = await _jwtTokenService.GenerateJwtToken(model.Email, user, userRoles);
+                var returnObj = new ReturnObject
+                {
+                    Token = jwt.ToString(),
+                    Roles = userRoles.ToList()
+                };
+                var json = JsonConvert.SerializeObject(returnObj);
+                return Ok(json);
             }
             
             throw new ApplicationException("UNKNOWN_ERROR");

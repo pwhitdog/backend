@@ -1,13 +1,3 @@
-/Users/paulwhitmer/Projects/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.deps.json
-/Users/paulwhitmer/Projects/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.runtimeconfig.json
-/Users/paulwhitmer/Projects/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.runtimeconfig.dev.json
-/Users/paulwhitmer/Projects/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.dll
-/Users/paulwhitmer/Projects/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.pdb
-/Users/paulwhitmer/Projects/Backend/Backend/obj/Debug/netcoreapp2.0/Backend.csproj.CoreCompileInputs.cache
-/Users/paulwhitmer/Projects/Backend/Backend/obj/Debug/netcoreapp2.0/Backend.AssemblyInfoInputs.cache
-/Users/paulwhitmer/Projects/Backend/Backend/obj/Debug/netcoreapp2.0/Backend.AssemblyInfo.cs
-/Users/paulwhitmer/Projects/Backend/Backend/obj/Debug/netcoreapp2.0/Backend.dll
-/Users/paulwhitmer/Projects/Backend/Backend/obj/Debug/netcoreapp2.0/Backend.pdb
 /Users/paulwhitmer/Projects/backend/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.deps.json
 /Users/paulwhitmer/Projects/backend/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.runtimeconfig.json
 /Users/paulwhitmer/Projects/backend/Backend/Backend/bin/Debug/netcoreapp2.0/Backend.runtimeconfig.dev.json
