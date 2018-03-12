@@ -54,7 +54,12 @@ namespace Backend.Controllers
             }
             catch
             {
-               return BadRequest("Incorrect username or password entered."); 
+                var errObj = new ReturnObject
+                {
+                    Error = "Incorrect username or password entered."
+                };
+                var json = JsonConvert.SerializeObject(errObj);
+               return BadRequest(json); 
             }
 
             return Ok();
@@ -95,6 +100,7 @@ namespace Backend.Controllers
         {
             public string Token { get; set; }
             public List<string> Roles { get; set; }
+            public string Error { get; set; }
         }
     }
 }
