@@ -18,7 +18,7 @@ namespace Backend.Controllers
         }
 
         // GET api/values/5
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, Customer")]
         [HttpGet("{id}")]
         public string Get(int id)
         {
